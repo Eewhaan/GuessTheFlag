@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="N8t-ir-Nvi">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="project2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="center" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tSB-8r-ay5">
+                                <rect key="frame" x="107" y="100" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="tSB-8r-ay5" secondAttribute="height" multiplier="2:1" id="LPA-5P-m3M"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="us">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ji7-xn-oU0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sRN-Po-NR9">
+                                <rect key="frame" x="107" y="230" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="sRN-Po-NR9" secondAttribute="height" multiplier="2:1" id="kq9-xW-4J9"/>
+                                </constraints>
+                                <state key="normal" title="" image="us"/>
+                                <connections>
+                                    <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iYX-We-z2B"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QtT-yf-PKZ">
+                                <rect key="frame" x="107" y="360" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="QtT-yf-PKZ" secondAttribute="height" multiplier="2:1" id="dQh-Q8-Kq0"/>
+                                </constraints>
+                                <state key="normal" title="" image="us"/>
+                                <connections>
+                                    <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2PQ-DT-3HZ"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6BU-b6-5dA">
+                                <rect key="frame" x="107" y="490" width="200" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="6BU-b6-5dA" secondAttribute="height" multiplier="25:8" id="arX-CE-1H6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="QtT-yf-PKZ" firstAttribute="top" secondItem="sRN-Po-NR9" secondAttribute="bottom" constant="30" id="2cB-pJ-5rw"/>
+                            <constraint firstItem="QtT-yf-PKZ" firstAttribute="centerX" secondItem="sRN-Po-NR9" secondAttribute="centerX" id="4e6-qa-YhO"/>
+                            <constraint firstItem="sRN-Po-NR9" firstAttribute="centerX" secondItem="tSB-8r-ay5" secondAttribute="centerX" id="O44-rH-C5a"/>
+                            <constraint firstItem="6BU-b6-5dA" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Sjv-e9-b2P"/>
+                            <constraint firstItem="tSB-8r-ay5" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="12" id="V9n-xJ-fq3"/>
+                            <constraint firstItem="sRN-Po-NR9" firstAttribute="top" secondItem="tSB-8r-ay5" secondAttribute="bottom" constant="30" id="VPZ-vv-YIy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6BU-b6-5dA" secondAttribute="bottom" constant="10" id="aoO-uS-udF"/>
+                            <constraint firstItem="tSB-8r-ay5" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="lT4-bA-Ihr"/>
+                            <constraint firstItem="QtT-yf-PKZ" firstAttribute="height" secondItem="sRN-Po-NR9" secondAttribute="height" id="o8K-Km-f3R"/>
+                            <constraint firstItem="6BU-b6-5dA" firstAttribute="top" secondItem="QtT-yf-PKZ" secondAttribute="bottom" constant="30" id="tnJ-Z1-98Q"/>
+                            <constraint firstItem="6BU-b6-5dA" firstAttribute="centerX" secondItem="QtT-yf-PKZ" secondAttribute="centerX" id="wdl-Eg-hCa"/>
+                            <constraint firstItem="sRN-Po-NR9" firstAttribute="height" secondItem="tSB-8r-ay5" secondAttribute="height" id="xxj-bH-gb6"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="SXM-08-Rpy"/>
+                    <connections>
+                        <outlet property="button1" destination="tSB-8r-ay5" id="30o-yb-PTe"/>
+                        <outlet property="button2" destination="sRN-Po-NR9" id="sgK-fB-Wtq"/>
+                        <outlet property="button3" destination="QtT-yf-PKZ" id="LUx-jU-ugV"/>
+                        <outlet property="showScore" destination="6BU-b6-5dA" id="ydb-QW-ONI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1839.1304347826087" y="83.705357142857139"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Cy9-IT-679">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="N8t-ir-Nvi" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8tH-Oh-grk">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="zMO-rs-IFt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="edI-fK-0KM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="928.98550724637687" y="83.705357142857139"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="us" width="200" height="100"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
