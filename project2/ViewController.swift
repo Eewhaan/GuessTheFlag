@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     var score = 0
     var correctAnswer = 0
     var questionsAsked = 0
+    var highScoreArray = [Int]()
+    var highScore = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +34,17 @@ class ViewController: UIViewController {
         askQuestion(action: nil)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem (barButtonSystemItem:.add, target: self, action: #selector(displayScore))
+        
+        let defaults = UserDefaults.standard
+        if let savedScores = defaults.object(forKey: "highScore") as? Data {
+            let jsonDecoder = JSONDecoder()
+            do {
+                highScoreArray = try jsonDecoder.decode([Int].self, from: savedScores)
+            } catch {
+                print("Unable to load highscores.")
+            }
+        }
+        setHighScore()
        
     }
     func askQuestion(action:UIAlertAction!) {
@@ -47,34 +60,48 @@ class ViewController: UIViewController {
     }
     
     @IBAction func buttonTapped(_ sender: UIButton) {
+        let button = sender
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 3, options: []) {
+            button.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            button.transform = .identity
+        } completion: { finished in
+        }
+
         
         var alertTitle: String
         var alertTitle2: String
+        var message: String
         
         if sender.tag == correctAnswer {
             score += 1
-           alertTitle = "Correct"
+            alertTitle = "Correct"
         } else {
             alertTitle = "Wrong, thats a flag of \(countries[sender.tag].uppercased())"
             score -= 1
         }
-        
         if questionsAsked == 10 {
-            
             alertTitle2 = "Congratulations, you answered 10 questions!"
-            
-            let qa = UIAlertController(title: alertTitle2, message: "Final score is \(score)", preferredStyle: .alert)
+            message = "Final score: \(score)"
+            if score > highScore {
+                message = "Way to go! New high score: \(score)"
+                highScore = score
+                highScoreArray.append(highScore)
+                save()
+                print(highScore)
+             }
+            let qa = UIAlertController(title: alertTitle2, message: message, preferredStyle: .alert)
             qa.addAction(UIAlertAction(title: "End", style: .destructive, handler: askQuestion))
             present(qa, animated: true)
             score = 0
             questionsAsked = 0
-         } else {
              
+         } else {
              let ac = UIAlertController(title: alertTitle, message: "Your score is \(score).", preferredStyle: .alert)
              ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
              present(ac, animated: true)
          }
         setScoreLabel()
+
     }
     
     @IBOutlet var showScore: UILabel!
@@ -88,6 +115,21 @@ class ViewController: UIViewController {
         let bi = UIAlertController(title: "Score", message: "Your score is: \(score)", preferredStyle:.alert)
         bi.addAction(UIAlertAction(title: "Ok", style: .cancel))
         present (bi, animated: true)
+    }
+    
+    func save() {
+        let jsonEnecoder = JSONEncoder()
+        if let savedScores = try? jsonEnecoder.encode(highScoreArray) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedScores, forKey: "highScore")
+        } else {
+            print ("Unable to save highscore")
+        }
+    }
+    
+    func setHighScore() {
+        guard let newHigh = highScoreArray.max() else { return }
+        highScore = newHigh
     }
 }
 
