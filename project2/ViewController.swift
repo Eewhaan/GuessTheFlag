@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     @IBOutlet var button1: UIButton!
     @IBOutlet var button2: UIButton!
     @IBOutlet var button3: UIButton!
@@ -45,6 +45,8 @@ class ViewController: UIViewController {
             }
         }
         setHighScore()
+        registerLocal()
+        scheduleLocal()
        
     }
     func askQuestion(action:UIAlertAction!) {
@@ -87,8 +89,8 @@ class ViewController: UIViewController {
                 highScore = score
                 highScoreArray.append(highScore)
                 save()
-                print(highScore)
              }
+            
             let qa = UIAlertController(title: alertTitle2, message: message, preferredStyle: .alert)
             qa.addAction(UIAlertAction(title: "End", style: .destructive, handler: askQuestion))
             present(qa, animated: true)
@@ -130,6 +132,60 @@ class ViewController: UIViewController {
     func setHighScore() {
         guard let newHigh = highScoreArray.max() else { return }
         highScore = newHigh
+    }
+    
+    func registerLocal () {
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.badge, .sound, .alert]) { (granted, error) in
+            if granted {
+                print("Request allowed.")
+            } else {
+                print("Request denied.")
+            }
+        }
+    }
+    
+    func scheduleLocal () {
+        registerCategories()
+        
+        let center = UNUserNotificationCenter.current()
+        let content = UNMutableNotificationContent()
+        content.body = "Daily reminder to play GuessTheFlag."
+        content.title = "GuessTheFlag"
+        content.sound = .default
+        content.categoryIdentifier = "reminder"
+        content.userInfo = ["currentHighScore": highScore]
+        
+        var dateCompoments = DateComponents()
+        for i in 1...7 {
+            dateCompoments.weekday = i
+            dateCompoments.hour = 18
+        }
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateCompoments, repeats: true)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        center.add(request)
+    }
+    
+    func registerCategories() {
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
+        let play = UNNotificationAction(identifier: "play", title: "Play now", options: .foreground)
+        let category = UNNotificationCategory(identifier: "reminder", actions: [play], intentIdentifiers: [])
+        center.setNotificationCategories([category])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        
+        if let currentHighScore = userInfo["currentHighScore"] as? Int {
+            if response.actionIdentifier == "play" {
+                let ac = UIAlertController(title: "Try to beat!", message: "Current Highscore: \(currentHighScore)", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Ok", style: .default))
+                present(ac, animated: true)
+                center.removePendingNotificationRequests(withIdentifiers: ["reminder"])
+            }
+        }
+        completionHandler()
     }
 }
 
