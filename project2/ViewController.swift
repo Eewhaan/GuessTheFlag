@@ -12,6 +12,9 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     @IBOutlet var button2: UIButton!
     @IBOutlet var button3: UIButton!
     
+    let playID = "play"
+    let reminderID = "reminder"
+    
     
     var countries = [String]()
     var score = 0
@@ -153,7 +156,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         content.body = "Daily reminder to play GuessTheFlag."
         content.title = "GuessTheFlag"
         content.sound = .default
-        content.categoryIdentifier = "reminder"
+        content.categoryIdentifier = reminderID
         content.userInfo = ["currentHighScore": highScore]
         
         var dateCompoments = DateComponents()
@@ -169,8 +172,8 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
     func registerCategories() {
         let center = UNUserNotificationCenter.current()
         center.delegate = self
-        let play = UNNotificationAction(identifier: "play", title: "Play now", options: .foreground)
-        let category = UNNotificationCategory(identifier: "reminder", actions: [play], intentIdentifiers: [])
+        let play = UNNotificationAction(identifier: playID, title: "Play now", options: .foreground)
+        let category = UNNotificationCategory(identifier: reminderID, actions: [play], intentIdentifiers: [])
         center.setNotificationCategories([category])
     }
     
@@ -178,11 +181,11 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
         
         if let currentHighScore = userInfo["currentHighScore"] as? Int {
-            if response.actionIdentifier == "play" {
+            if response.actionIdentifier == playID {
                 let ac = UIAlertController(title: "Try to beat!", message: "Current Highscore: \(currentHighScore)", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Ok", style: .default))
                 present(ac, animated: true)
-                center.removePendingNotificationRequests(withIdentifiers: ["reminder"])
+                center.removePendingNotificationRequests(withIdentifiers: [reminderID])
             }
         }
         completionHandler()
