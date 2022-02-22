@@ -52,7 +52,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         scheduleLocal()
        
     }
-    func askQuestion(action:UIAlertAction!) {
+    func askQuestion(action: UIAlertAction?) {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
         
